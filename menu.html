@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu - Food Stall</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Inter', sans-serif; overflow-x: hidden; background: linear-gradient(rgba(12,25,40,0.45), rgba(12,25,40,0.45)), url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1600&q=80'); background-size: cover; color: white; min-height: 100vh; }
+header { display: flex; justify-content: space-between; align-items: center; padding: 20px; background: rgba(0,0,0,0.5); }
+header h1 { font-size: 28px; }
+header button { padding: 10px 20px; background: crimson; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+.container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 40px; }
+.card { background: rgba(255,255,255,0.1); border-radius: 12px; padding: 20px; width: 250px; text-align: center; backdrop-filter: blur(5px); }
+.card img { width: 100%; border-radius: 10px; height: 150px; object-fit: cover; }
+.card button { margin: 5px; background: #00b894; padding: 8px 16px; border: none; border-radius: 6px; color: white; font-weight: bold; cursor: pointer; }
+.card button:hover { background: #019870; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🍃 Cool Breeze Food Stall</h1>
+  <button onclick="logout()">Logout</button>
+</header>
+
+<div class="container" id="menuCards"></div>
+
+<script>
+const foods = [
+  {name:"Masala Dosa", zomatoPrice:80, swiggyPrice:85, img:"https://png.pngtree.com/thumb_back/fh260/background/20250618/pngtree-masala-dosa-crispy-indian-crepe-filled-with-spiced-potatoes-image_17438896.jpg", zomato:"https://www.zomato.com/coimbatore/delivery/dish-masala-dosa", swiggy:"https://www.swiggy.com/city/coimbatore/masala-dosa-dish-restaurants"},
+  {name:"Paneer Butter Masala", zomatoPrice:150, swiggyPrice:155, img:"https://static.vecteezy.com/system/resources/previews/053/315/226/non_2x/delicious-paneer-butter-masala-indian-dish-with-naan-photo.jpeg", zomato:"https://www.zomato.com/coimbatore/delivery/dish-paneer-butter-masala", swiggy:"https://www.swiggy.com/city/coimbatore/paneer-butter-masala-dish-restaurants"},
+  {name:"Veg Biryani", zomatoPrice:120, swiggyPrice:125, img:"https://i.ytimg.com/vi/Do7ZdUodDdw/hq720.jpg", zomato:"https://www.zomato.com/coimbatore/delivery/dish-veg-biryani", swiggy:"https://www.swiggy.com/city/coimbatore/veg-biryani-dish-restaurants"},
+  {name:"Idli Sambar", zomatoPrice:60, swiggyPrice:65, img:"https://static.toiimg.com/thumb/msid-113810989,width-1280,height-720,resizemode-4/113810989.jpg", zomato:"https://www.zomato.com/coimbatore/delivery/dish-idli", swiggy:"https://www.swiggy.com/city/coimbatore/sambar-dish-restaurants"},
+  {name:"Chicken Curry", zomatoPrice:180, swiggyPrice:185, img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQgSA146aPPQY-9_jiSHNcdR1Rm2aHwjNgXg&s", zomato:"https://www.zomato.com/coimbatore/mr-curry-1-kavundampalayam/order", swiggy:"https://www.swiggy.com/city/coimbatore/green-tree-restaurant-sivanandhapuram-saravanampatti-rest360542"},
+  {name:"Vada Pav", zomatoPrice:40, swiggyPrice:45, img:"https://media.istockphoto.com/id/1329213718/photo/vada-pav.jpg?s=612x612&w=0&k=20&c=Yy3pm53KrPAnZXL9weCJDzXjxa2My34oVFx7RBCPmZ8=", zomato:"https://www.zomato.com/coimbatore/delivery/dish-vada-pav", swiggy:"https://www.swiggy.com/city/coimbatore/vada-pav-dish-restaurants"},
+  {name:"Samosa", zomatoPrice:30, swiggyPrice:35, img:"https://static.vecteezy.com/system/resources/thumbnails/028/857/626/small/samosa-curry-stuffed-with-methi-diwali-stock-images-realistic-stocks-photo.jpg", zomato:"https://www.zomato.com/coimbatore/delivery/dish-samosa", swiggy:"https://www.swiggy.com/city/coimbatore/samosa-dish-restaurants"},
+  {name:"Chole Bhature", zomatoPrice:110, swiggyPrice:115, img:"https://indaroma.com/wp-content/uploads/2024/02/Chole-Bhatura-1-scaled.jpeg", zomato:"https://www.zomato.com/coimbatore/delivery/dish-chole-bhature", swiggy:"https://www.swiggy.com/city/coimbatore/chole-bhature-dish-restaurants"},
+  {name:"Pav Bhaji", zomatoPrice:90, swiggyPrice:95, img:"https://www.cubesnjuliennes.com/wp-content/uploads/2020/07/Instant-Pot-Mumbai-Pav-Bhaji-Recipe.jpg", zomato:"https://www.zomato.com/coimbatore/delivery/dish-pav-bhaji", swiggy:"https://www.swiggy.com/city/coimbatore/pav-bhaji-dish-restaurants"},
+  {name:"Momos", zomatoPrice:70, swiggyPrice:75, img:"https://static.india.com/wp-content/uploads/2024/12/FEATURE-2024-12-15T174448.090.jpg", zomato:"https://www.zomato.com/coimbatore/delivery/dish-momos", swiggy:"https://www.swiggy.com/city/coimbatore/momos-dish-restaurants"},
+  {name:"Tandoori Chicken", zomatoPrice:200, swiggyPrice:205, img:"https://www.cubesnjuliennes.com/wp-content/uploads/2022/12/Tandoori-Chicken-Recipe.jpg", zomato:"https://www.zomato.com/coimbatore/delivery/dish-tandoori-chicken", swiggy:"https://www.swiggy.com/city/coimbatore/tandoori-chicken-dish-restaurants"},
+  {name:"Dal Makhani", zomatoPrice:130, swiggyPrice:135, img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9NubCId4fEYLxIPftzNJxJ791AmypuHopsA&s", zomato:"https://www.zomato.com/coimbatore/delivery/dish-dal-makhani", swiggy:"https://www.swiggy.com/city/coimbatore/dal-makhani-dish-restaurants"},
+  {name:"Gulab Jamun", zomatoPrice:90, swiggyPrice:95, img:"https://sharmanjainsweets.com/cdn/shop/articles/Untitled_design_eb07557c-e535-4bdf-9063-8a1f1cffa58c.png", zomato:"https://www.zomato.com/coimbatore/delivery/dish-gulab-jamun", swiggy:"https://www.swiggy.com/city/coimbatore/gulab-jamun-dish-restaurants"},
+  {name:"Rasmalai", zomatoPrice:120, swiggyPrice:125, img:"https://static.toiimg.com/thumb/68358712.cms?imgsize=403497&width=800&height=800", zomato:"https://www.zomato.com/coimbatore/delivery/dish-rasmalai", swiggy:"https://www.swiggy.com/city/coimbatore/rasmalai-dish-restaurants"},
+  {name:"Pani Puri", zomatoPrice:50, swiggyPrice:55, img:"https://i2.wp.com/wp-backend.thefearlesscooking.com/wp-content/uploads/2022/03/WhatsApp-Image-2022-03-10-at-4.45.10-PM.jpeg?fit=1536%2C1024&ssl=1", zomato:"https://www.zomato.com/coimbatore/delivery/dish-panipuri", swiggy:"https://www.swiggy.com/city/coimbatore/pani-puri-dish-restaurants"}
+];
+
+function loadMenu(){
+  const menuDiv = document.getElementById("menuCards");
+  foods.forEach(food=>{
+    let priceDiff = food.zomatoPrice !== food.swiggyPrice ? `<span style="color:red;"> (₹${Math.abs(food.zomatoPrice-food.swiggyPrice)} difference)</span>` : "";
+    menuDiv.innerHTML+=`
+      <div class="card">
+        <img src="${food.img}">
+        <h3>${food.name}</h3>
+        <p>Zomato: ₹${food.zomatoPrice}</p>
+        <p>Swiggy: ₹${food.swiggyPrice} ${priceDiff}</p>
+        <button onclick="window.open('${food.zomato}','_blank')">Order on Zomato</button>
+        <button onclick="window.open('${food.swiggy}','_blank')">Order on Swiggy</button>
+      </div>`;
+  });
+}
+
+function logout(){
+  window.location.href = "login.html";
+}
+
+window.onload = loadMenu;
+</script>
+
+</body>
+</html>
