@@ -14,13 +14,15 @@ body {
   color: white; 
   min-height: 100vh; 
 }
-header { 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  padding: 20px; 
-  background: rgba(0,0,0,0.5); 
-  animation: fadeIn 1s ease-in-out; 
+header {
+   /* keeps header at the top */
+  top: 0;
+  z-index: 1000; /* above other content */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 header h1 { 
   font-size: 28px; 
@@ -41,8 +43,9 @@ header button:hover {
 }
 .search-container {
   display: flex;
-  align-items: center;
   gap: 10px;
+  flex-grow: 1;
+  margin: 0 20px;
 }
 .search-container input {
   padding: 10px;
@@ -204,18 +207,63 @@ header button:hover {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+#refreshBtn {
+  background: linear-gradient(135deg, #d86b28, #00f2fe);
+  color: rgb(215, 232, 142);
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  padding-right: 20px;
+}
+
+#refreshBtn:hover {
+  transform: scale(1.1) rotate(10deg);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+#refreshBtn:active {
+  transform: scale(0.95);
+}
+
+#refreshBtn i {
+  transition: transform 0.6s ease-in-out;
+}
+
+#refreshBtn:hover i {
+  transform: rotate(360deg);
+}
+
+
 </style>
 </head>
 <body>
 
 <header>
   <h1>🍃 Cool Breeze Food Stall</h1>
+
   <div class="search-container">
     <input type="text" id="searchInput" placeholder="Search menu..." oninput="filterMenu()">
     <button onclick="clearSearch()">Clear</button>
   </div>
+
+  <!-- Refresh Button -->
+  <button id="refreshBtn" onclick="refreshPage()" title="Refresh Menu">
+    <i class="fa fa-sync-alt"></i>
+  </button>
+
   <button onclick="logout()">Logout</button>
 </header>
+
+<!-- FontAwesome for icon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
 <div class="container" id="menuCards"></div>
 
@@ -392,10 +440,20 @@ function orderOnPlatform(event, url, platform) {
 }
 
 function logout(){
-  window.location.href = "login.html";
+  window.location.href = "index.html";
 }
 
 window.onload = () => loadMenu();
+
+</script>
+<script>
+function refreshPage() {
+  const icon = document.querySelector("#refreshBtn i");
+  icon.style.transform = "rotate(720deg)";
+  setTimeout(() => {
+    location.reload();
+  }, 600); // wait for animation before reload
+}
 </script>
 
 </body>
