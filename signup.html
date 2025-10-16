@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +36,11 @@ body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
   background: linear-gradient(45deg, #2E7D32, #1B5E20);
 }
 .signup-container a {
-  color: white; display: block; margin-top: 15px; text-decoration: underline;
+  color: white; display: block; margin-top: 15px; text-decoration:none;
+}
+.signup-container a .text{
+  color: rgba(216, 16, 16, 0.719);
+  font-weight: 600;
 }
 </style>
 </head>
@@ -47,7 +52,8 @@ body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
     <input type="email" id="signupEmail" placeholder="Enter Gmail" required>
     <input type="password" id="signupPassword" placeholder="Enter Password" required>
     <button onclick="signUp()">Sign Up</button>
-    <a href="index.html">Already have an account? Login</a>
+    <a href="index.html">Already have an account ?<span class="text">   Login</span> </a>
+  
   </div>
 </div>
 
