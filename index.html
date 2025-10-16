@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +36,11 @@ body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
   background: linear-gradient(45deg, #ff0000, #cc0000);
 }
 .login-container a {
-  color: white; display: block; margin-top: 15px; text-decoration: underline;
+  color: white; display: block; margin-top: 15px; text-decoration:none;
+}
+.login-container a .text {
+  color: rgb(187, 196, 71); 
+  font-weight: 600;
 }
 </style>
 </head>
@@ -47,7 +52,7 @@ body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
     <input type="email" id="email" placeholder="Enter Gmail" required>
     <input type="password" id="password" placeholder="Enter Password" required>
     <button onclick="register()">Sign In</button>
-    <a href="signup.html">Don't have an account?Create it </a>
+    <a href="signup.html">Don't have an account ? <span class="text">Create it</span> </a>
   </div>
 </div>
 
@@ -92,5 +97,5 @@ function storeUser(email){
   }
 }
 </script>
-</body>
+</body>  
 </html>
