@@ -51,9 +51,9 @@ header button:hover {
   padding: 10px;
   border: none;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(187, 112, 112, 0.2);
   color: white;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif; 
   font-size: 16px;
   width: 200px;
   transition: width 0.3s ease, background 0.3s ease;
@@ -80,14 +80,16 @@ header button:hover {
   background: #019870;
   transform: scale(1.05);
 }
-.container { 
-  display: flex; 
-  flex-wrap: wrap; 
-  justify-content: center; 
-  gap: 20px; 
-  padding: 40px; 
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px;
   position: relative;
+ /* Smooth transition for zoom effect */
 }
+
 .card { 
   background: rgba(255,255,255,0.1); 
   border-radius: 12px; 
@@ -122,21 +124,29 @@ header button:hover {
 .card:hover img {
   transform: scale(1.05);
 }
+/* Smooth Hover Zoom for Cards */
+.card:hover:not(.swapping):not(.touched) {
+  transform: scale(1.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  background: rgba(170, 30, 30, 0.15);
+  transform: scale(1.1);
+}
+
 .card button { 
   margin: 5px; 
   background: #00b894; 
   padding: 8px 16px; 
   border: none; 
   border-radius: 6px; 
-  color: white; 
-  font-weight: bold; 
+  color: rgb(100, 10, 10); 
+  font-weight: bold;  
   cursor: pointer; 
   transition: transform 0.3s ease, background 0.3s ease; 
 }
 .card button:hover { 
   background: #019870; 
   transform: scale(1.05); 
-}
+}  
 .card:hover:not(.swapping):not(.touched) { 
   transform: translateY(-10px); 
   box-shadow: 0 8px 16px rgba(0,0,0,0.3); 
@@ -222,6 +232,7 @@ header button:hover {
   justify-content: center;
   transition: transform 0.3s, box-shadow 0.3s;
   padding-right: 20px;
+  margin-right: 20px;
 }
 
 #refreshBtn:hover {
@@ -239,7 +250,17 @@ header button:hover {
 #refreshBtn:hover i {
   transform: rotate(360deg);
 }
-
+/* Hover Zoom Effect */
+.product-container .product,
+.card,
+.menu-item {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.card:hover {
+  transform: scale(2.5);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
 
 </style>
 </head>
